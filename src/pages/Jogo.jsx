@@ -97,6 +97,7 @@ export default function Jogo() {
           }));
 
           setDesafioConcluido(true);
+          setMostrarResultadoFase(false);
         }}
       />
     );
@@ -123,15 +124,10 @@ export default function Jogo() {
         continuar={() => {
           if (faseAtual < fases.length - 1) {
             setFaseAtual((prev) => prev + 1);
-
             setIndiceAtual(0);
-
             setPontosFase(0);
-
             setDesafioConcluido(false);
-
             setMostrarIntroFase(true);
-
             setMostrarResultadoFase(false);
           } else {
             setFimDeJogo(true);
@@ -139,15 +135,12 @@ export default function Jogo() {
         }}
         repetir={() => {
           setIndiceAtual(0);
-
           setPontosFase(0);
-
           setDesafioConcluido(false);
-
           setMostrarIntroFase(true);
-
           setMostrarResultadoFase(false);
         }}
+        voltar={() => window.location.reload()}
       />
     );
   }
@@ -159,6 +152,14 @@ export default function Jogo() {
           <p className="text-green-400 text-xs font-semibold uppercase">
             Fase {fase.id} • {fase.nome}
           </p>
+
+          <div className="flex justify-between items-center mt-3">
+            <span className="text-xs text-slate-400">
+              Pergunta {indiceAtual + 1}/{perguntasDaFase.length}
+            </span>
+
+            <span className="text-green-400 font-bold">⭐ {pontosFase}</span>
+          </div>
 
           <div className="flex items-center justify-between mt-1">
             <h1 className="text-xl font-bold">Desafio Ambiental</h1>
@@ -177,6 +178,12 @@ export default function Jogo() {
             />
           </div>
 
+          <div className="flex justify-between mt-2 text-xs">
+            <span className="text-slate-400">Meta: {fase.pontuacaoMinima}</span>
+
+            <span className="text-green-400">{pontosFase} pts</span>
+          </div>
+
           <div className="mt-2 flex justify-between text-xs text-slate-400">
             <span>Pontuação da fase: {pontosFase}</span>
 
@@ -184,7 +191,7 @@ export default function Jogo() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 mb-5">
+        {/* <div className="grid grid-cols-2 gap-3 mb-5">
           <div className="border border-slate-800 rounded-2xl p-3">
             <p className="text-xs text-slate-400">Sustentabilidade 🌱</p>
             <strong className="text-2xl">{status.sustentabilidade}</strong>
@@ -204,9 +211,9 @@ export default function Jogo() {
             <p className="text-xs text-slate-400">Consciência 🧠</p>
             <strong className="text-2xl">{status.consciencia}</strong>
           </div>
-        </div>
+        </div> */}
 
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-5 mb-4">
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 mt-4 mb-4">
           <div className="flex items-center justify-between mb-4">
             <span className="text-green-400 text-xs font-bold uppercase">
               {perguntaAtual.nivel}
@@ -215,7 +222,7 @@ export default function Jogo() {
             <span className="text-xs text-slate-400">+10 pontos</span>
           </div>
 
-          <h2 className="text-lg font-bold leading-relaxed">
+          <h2 className="text-base font-semibold leading-relaxed">
             {perguntaAtual.pergunta}
           </h2>
         </div>
@@ -226,7 +233,7 @@ export default function Jogo() {
               key={index}
               onClick={() => responder(alternativa, index)}
               disabled={respondido}
-              className={`w-full min-h-[64px] rounded-2xl px-4 py-4 text-left text-sm leading-relaxed 
+              className={`w-full min-h-[80px] rounded-2xl px-4 py-4 text-left text-base leading-relaxed 
                 transition-all border active:scale-[0.98] ${
                   respondido
                     ? alternativa.correta
