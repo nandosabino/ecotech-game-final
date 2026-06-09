@@ -1,23 +1,26 @@
 import { useState } from "react";
-import { residuos } from "../data/residuos";
 import IntroReciclagem from "../components/IntroReciclagem";
 import ResultadoReciclagem from "../components/ResultadoReciclagem";
 
 const lixeiras = [
   {
     nome: "Papel",
+    emoji: "📄",
     cor: "bg-blue-500 text-white",
   },
   {
     nome: "Plástico",
+    emoji: "🧴",
     cor: "bg-red-500 text-white",
   },
   {
     nome: "Vidro",
+    emoji: "🍾",
     cor: "bg-green-500 text-white",
   },
   {
     nome: "Metal",
+    emoji: "🥫",
     cor: "bg-yellow-400 text-slate-950",
   },
 ];
@@ -44,7 +47,7 @@ export default function ReciclagemGame({ finalizar }) {
     setBloqueado(true);
 
     const acertou = lixeira === residuoAtual.resposta;
-    const novaPontuacao = acertou ? pontos + 10 : pontos;
+    const novaPontuacao = acertou ? pontos + 100 : pontos;
 
     setPontos(novaPontuacao);
 
@@ -127,7 +130,7 @@ export default function ReciclagemGame({ finalizar }) {
         </div>
 
         <div className="mt-5 bg-slate-900 border border-slate-800 rounded-2xl p-3">
-          <p className="text-xs text-slate-400">Meta da fase</p>3
+          <p className="text-xs text-slate-400">Meta da fase</p>
           <p className="text-green-400 font-bold">
             Acerte pelo menos 7 dos 10 resíduos
           </p>

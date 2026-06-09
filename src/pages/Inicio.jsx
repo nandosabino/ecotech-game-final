@@ -1,6 +1,14 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
+import Fases from "../pages/Fases";
 
 export default function Inicio({ iniciarJogo }) {
+  const [mostrarFases, setMostrarFases] = useState(false);
+
+  if (mostrarFases) {
+    return <Fases voltar={() => setMostrarFases(false)} faseLiberada={1} />;
+  }
+
   return (
     <main className="min-h-screen bg-slate-950 text-white flex items-center justify-center px-5 py-6">
       <motion.section
@@ -16,14 +24,22 @@ export default function Inicio({ iniciarJogo }) {
           Projeto de Extensão • Educação Ambiental
         </span>
 
-        <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-          EcoTech: Crise Ambiental
-        </h1>
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-5xl font-extrabold mb-3 leading-tight"
+        >
+          EcoTech
+        </motion.h1>
 
-        <p className="text-slate-300 text-lg md:text-xl mb-8 leading-relaxed">
-          Tome decisões, resolva desafios e teste seus conhecimentos sobre
-          sustentabilidade, reciclagem, tecnologia sustentável e preservação
-          ambiental.
+        <h2 className="text-green-400 text-xl font-semibold mb-6">
+          Guardião da Cidade Sustentável
+        </h2>
+
+        <p className="text-slate-300 text-base leading-relaxed mb-8">
+          Assuma o papel de um gestor ambiental e enfrente desafios reais para
+          transformar a cidade EcoTech em um exemplo de sustentabilidade.
         </p>
 
         <motion.div
@@ -54,14 +70,34 @@ export default function Inicio({ iniciarJogo }) {
           </div>
         </motion.div>
 
+        <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-4 mb-6">
+          <p className="text-xs uppercase text-slate-400 mb-3">Sua jornada</p>
+        </div>
+
+        <div className="grid grid-cols-3 gap-2 text-sm">
+          <span>🌱 Consciência</span>
+          <span>♻️ Resíduos</span>
+          <span>💧 Água</span>
+          <span>🌳 Poluição</span>
+          <span>🤖 Tecnologia</span>
+          <span>🏆 Final</span>
+        </div>
+
         <motion.button
           whileTap={{ scale: 0.96 }}
           whileHover={{ scale: 1.02 }}
           onClick={iniciarJogo}
-          className="w-full bg-linear-to-r from-green-400 to-green-500 text-slate-950 font-bold py-4 rounded-xl transition-all shadow-lg shadow-green-500/20"
+          className="w-full bg-gradient-to-r from-green-400 to-emerald-500 text-slate-950 font-bold py-4 rounded-2xl shadow-lg shadow-green-500/20"
         >
           Começar Desafio
         </motion.button>
+
+        <button
+          onClick={() => setMostrarFases(true)}
+          className="w-full mt-4 bg-slate-900 border border-slate-800 text-white font-semibold py-4 rounded-xl"
+        >
+          📚 Ver Fases
+        </button>
       </motion.section>
     </main>
   );

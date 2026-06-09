@@ -5,6 +5,9 @@ import FaseIntro from "../components/FaseIntro";
 import ReciclagemGame from "../components/ReciclagemGame";
 import Final from "./Final";
 import FaseResultado from "../components/FaseResultado";
+import QuestionCard from "../components/QuestionCard";
+import CidadeHUD from "../components/CidadeHUD";
+import { motion } from "framer-motion";
 
 export default function Jogo() {
   const [indiceAtual, setIndiceAtual] = useState(0);
@@ -27,8 +30,19 @@ export default function Jogo() {
   const [mostrarIntroFase, setMostrarIntroFase] = useState(true);
   const [desafioConcluido, setDesafioConcluido] = useState(false);
   const [mostrarResultadoFase, setMostrarResultadoFase] = useState(false);
+  const [feedback, setFeedback] = useState(null);
 
   const fase = fases[faseAtual];
+
+  if (fimDeJogo) {
+    return (
+      <Final
+        pontuacao={pontuacao}
+        status={status}
+        reiniciar={() => window.location.reload()}
+      />
+    );
+  }
 
   const perguntasDaFase = perguntas.filter(
     (pergunta) => pergunta.fase === fase.id,
@@ -40,60 +54,17 @@ export default function Jogo() {
     return <FaseIntro fase={fase} iniciar={() => setMostrarIntroFase(false)} />;
   }
 
-  function responder(alternativa, index) {
-    if (respondido) return;
-
-    setRespostaSelecionada(index);
-    setRespondido(true);
-
-    const impacto = alternativa.impacto;
-
-    setStatus((prev) => ({
-      sustentabilidade: prev.sustentabilidade + (impacto.sustentabilidade || 0),
-
-      agua: prev.agua + (impacto.agua || 0),
-
-      energia: prev.energia + (impacto.energia || 0),
-
-      consciencia: prev.consciencia + (impacto.consciencia || 0),
-
-      recursos: prev.recursos + (impacto.recursos || 0),
-    }));
-
-    if (alternativa.correta) {
-      setPontuacao((prev) => prev + 10);
-
-      setPontosFase((prev) => prev + 10);
-    }
-
-    setTimeout(() => {
-      if (indiceAtual < perguntasDaFase.length - 1) {
-        setIndiceAtual((prev) => prev + 1);
-
-        if (indiceAtual === perguntasDaFase.length - 1) {
-          setMostrarResultadoFase(true);
-        }
-      } else {
-        setFimDeJogo(true);
-      }
-
-      setRespostaSelecionada(null);
-      setRespondido(false);
-    }, 1500);
-  }
-
   if (fase.tipo === "residuos" && !desafioConcluido) {
     return (
       <ReciclagemGame
         finalizar={(pontosMinigame) => {
           setPontuacao((prev) => prev + pontosMinigame);
-
           setPontosFase((prev) => prev + pontosMinigame);
 
           setStatus((prev) => ({
             ...prev,
-            sustentabilidade: prev.sustentabilidade + 15,
-            consciencia: prev.consciencia + 10,
+            sustentabilidade: Math.min(100, prev.sustentabilidade + 15),
+            consciencia: Math.min(100, prev.consciencia + 10),
           }));
 
           setDesafioConcluido(true);
@@ -103,14 +74,64 @@ export default function Jogo() {
     );
   }
 
-  if (fimDeJogo) {
+  if (!perguntaAtual && !mostrarResultadoFase && !fimDeJogo) {
     return (
-      <Final
-        pontuacao={pontuacao}
-        status={status}
-        reiniciar={() => window.location.reload()}
-      />
+      <main className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-6">
+        <p>Nenhuma pergunta encontrada para esta fase</p>
+      </main>
     );
+  }
+
+  function responder(alternativa, index) {
+    if (respondido) return;
+
+    setRespostaSelecionada(index);
+    setRespondido(true);
+    setFeedback(null);
+
+    setFeedback({
+      correta: alternativa.correta,
+      explicacao: perguntaAtual.explicacao,
+    });
+
+    const impacto = alternativa.impacto || {};
+
+    setStatus((prev) => ({
+      sustentabilidade: Math.max(
+        0,
+        Math.min(100, prev.sustentabilidade + (impacto.sustentabilidade || 0)),
+      ),
+      agua: Math.max(0, Math.min(100, prev.agua + (impacto.agua || 0))),
+      energia: Math.max(
+        0,
+        Math.min(100, prev.energia + (impacto.energia || 0)),
+      ),
+      consciencia: Math.max(
+        0,
+        Math.min(100, prev.consciencia + (impacto.consciencia || 0)),
+      ),
+      recursos: Math.max(
+        0,
+        Math.min(100, prev.recursos + (impacto.recursos || 0)),
+      ),
+    }));
+
+    if (alternativa.correta) {
+      setPontuacao((prev) => prev + 100);
+      setPontosFase((prev) => prev + 100);
+    }
+  }
+
+  function proximaPergunta() {
+    if (indiceAtual < perguntasDaFase.length - 1) {
+      setIndiceAtual((prev) => prev + 1);
+    } else {
+      setMostrarResultadoFase(true);
+    }
+
+    setRespostaSelecionada(null);
+    setRespondido(false);
+    setFeedback(null);
   }
 
   if (mostrarResultadoFase) {
@@ -146,7 +167,7 @@ export default function Jogo() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white px-4 py-5">
+    <main className="min-h-screen bg-[radial-gradient(circle_at_top,_#064e3b_0%,_#020617_45%)] text-white px-4 py-5">
       <section className="w-full max-w-[430px] mx-auto">
         <div className="mb-5">
           <p className="text-green-400 text-xs font-semibold uppercase">
@@ -170,11 +191,12 @@ export default function Jogo() {
           </div>
 
           <div className="w-full h-2 bg-slate-800 rounded-full mt-4 overflow-hidden">
-            <div
-              className="h-full bg-green-500 rounded-full transition-all"
-              style={{
+            <motion.div
+              className="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full"
+              animate={{
                 width: `${((indiceAtual + 1) / perguntasDaFase.length) * 100}%`,
               }}
+              transition={{ duration: 0.4 }}
             />
           </div>
 
@@ -191,66 +213,48 @@ export default function Jogo() {
           </div>
         </div>
 
-        {/* <div className="grid grid-cols-2 gap-3 mb-5">
-          <div className="border border-slate-800 rounded-2xl p-3">
-            <p className="text-xs text-slate-400">Sustentabilidade 🌱</p>
-            <strong className="text-2xl">{status.sustentabilidade}</strong>
-          </div>
-
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3">
-            <p className="text-xs text-slate-400">Água 💧</p>
-            <strong className="text-xl font-bold">{status.agua}</strong>
-          </div>
-
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3">
-            <p className="text-xs text-slate-400">Energia ⚡</p>
-            <strong className="text-2xl">{status.energia}</strong>
-          </div>
-
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3">
-            <p className="text-xs text-slate-400">Consciência 🧠</p>
-            <strong className="text-2xl">{status.consciencia}</strong>
-          </div>
-        </div> */}
-
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 mt-4 mb-4">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-green-400 text-xs font-bold uppercase">
-              {perguntaAtual.nivel}
-            </span>
-
-            <span className="text-xs text-slate-400">+10 pontos</span>
-          </div>
-
-          <h2 className="text-base font-semibold leading-relaxed">
-            {perguntaAtual.pergunta}
-          </h2>
-        </div>
+        <CidadeHUD status={status} />
 
         <div className="flex flex-col gap-3 pb-6">
-          {perguntaAtual.alternativas.map((alternativa, index) => (
-            <button
-              key={index}
-              onClick={() => responder(alternativa, index)}
-              disabled={respondido}
-              className={`w-full min-h-[80px] rounded-2xl px-4 py-4 text-left text-base leading-relaxed 
-                transition-all border active:scale-[0.98] ${
-                  respondido
-                    ? alternativa.correta
-                      ? "bg-green-500 border-green-400 text-slate-950"
-                      : respostaSelecionada === index
-                        ? "bg-red-500 border-red-400 text-white"
-                        : "bg-slate-900 border-slate-800 text-slate-500"
-                    : "bg-slate-900 border-slate-800 hover:border-green-500"
-                }`}
-            >
-              <span className="font-bold text-green-400 mr-2">
-                {String.fromCharCode(65 + index)}
-              </span>
-              {alternativa.texto}
-            </button>
-          ))}
+          <QuestionCard
+            pergunta={perguntaAtual}
+            responder={responder}
+            respondido={respondido}
+            respostaSelecionada={respostaSelecionada}
+          />
         </div>
+
+        {feedback && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25 }}
+            className={`mt-4 rounded-2xl border p-4 text-sm ${
+              feedback.correta
+                ? "bg-green-500/10 border-green-500 text-green-300"
+                : "bg-red-500/10 border-red-500 text-red-300"
+            }`}
+          >
+            <strong>
+              {feedback.correta ? "✅ Correto!" : "❌ Incorreto!"}
+            </strong>
+
+            <p className="mt-2 text-slate-300">{feedback.explicacao}</p>
+          </motion.div>
+        )}
+
+        {respondido && (
+          <motion.button
+            whileTap={{ scale: 0.97 }}
+            whileHover={{ scale: 1.01 }}
+            onClick={proximaPergunta}
+            className="w-full mt-4 bg-green-500 text-slate-950 font-bold py-4 rounded-2xl active:scale-[0.98] transition"
+          >
+            {indiceAtual < perguntasDaFase.length - 1
+              ? "Próxima pergunta →"
+              : "Ver resultado da fase"}
+          </motion.button>
+        )}
       </section>
     </main>
   );
