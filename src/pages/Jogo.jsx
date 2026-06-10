@@ -7,7 +7,7 @@ import Final from "./Final";
 import FaseResultado from "../components/FaseResultado";
 import QuestionCard from "../components/QuestionCard";
 import CidadeHUD from "../components/CidadeHUD";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Jogo() {
   const [indiceAtual, setIndiceAtual] = useState(0);
@@ -216,12 +216,16 @@ export default function Jogo() {
         <CidadeHUD status={status} />
 
         <div className="flex flex-col gap-3 pb-6">
-          <QuestionCard
-            pergunta={perguntaAtual}
-            responder={responder}
-            respondido={respondido}
-            respostaSelecionada={respostaSelecionada}
-          />
+          <AnimatePresence mode="wait">
+            <motion.div>
+              <QuestionCard
+                pergunta={perguntaAtual}
+                responder={responder}
+                respondido={respondido}
+                respostaSelecionada={respostaSelecionada}
+              />
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {feedback && (

@@ -71,16 +71,18 @@ export default function Inicio({ iniciarJogo }) {
         </motion.div>
 
         <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-4 mb-6">
-          <p className="text-xs uppercase text-slate-400 mb-3">Sua jornada</p>
-        </div>
+          <p className="text-xs uppercase text-slate-400 mb-3 text-center">
+            Sua Jornada
+          </p>
 
-        <div className="grid grid-cols-3 gap-2 text-sm">
-          <span>🌱 Consciência</span>
-          <span>♻️ Resíduos</span>
-          <span>💧 Água</span>
-          <span>🌳 Poluição</span>
-          <span>🤖 Tecnologia</span>
-          <span>🏆 Final</span>
+          <div className="flex gap-4 justify-between text-2xl">
+            <span>🌱</span>
+            <span>♻️</span>
+            <span>💧</span>
+            <span>🌳</span>
+            <span>🤖</span>
+            <span>🏆</span>
+          </div>
         </div>
 
         <motion.button
