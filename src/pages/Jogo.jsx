@@ -217,7 +217,13 @@ export default function Jogo() {
 
         <div className="flex flex-col gap-3 pb-6">
           <AnimatePresence mode="wait">
-            <motion.div>
+            <motion.div
+              key={perguntaAtual.id}
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -40 }}
+              transition={{ duration: 0.3 }}
+            >
               <QuestionCard
                 pergunta={perguntaAtual}
                 responder={responder}
