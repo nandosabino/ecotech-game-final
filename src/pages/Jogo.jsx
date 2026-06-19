@@ -82,6 +82,18 @@ export default function Jogo() {
     );
   }
 
+  function calcularPontos(nivel) {
+    const nivelNormalizado = nivel.toLowerCase();
+
+    if (nivelNormalizado === "facil" || nivelNormalizado === "facil") return 50;
+    if (nivelNormalizado === "medio" || nivelNormalizado === "medio")
+      return 100;
+    if (nivelNormalizado === "dificil" || nivelNormalizado === "dificil")
+      return 150;
+
+    return 100;
+  }
+
   function responder(alternativa, index) {
     if (respondido) return;
 
@@ -117,8 +129,10 @@ export default function Jogo() {
     }));
 
     if (alternativa.correta) {
-      setPontuacao((prev) => prev + 100);
-      setPontosFase((prev) => prev + 100);
+      const pontosGanhos = calcularPontos(perguntaAtual.nivel);
+
+      setPontuacao((prev) => prev + pontosGanhos);
+      setPontosFase((prev) => prev + pontosGanhos);
     }
   }
 

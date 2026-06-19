@@ -6,7 +6,7 @@ export const fases = [
     objetivo: "Reduzir a poluição e incentivar a separação correta dos resíduos recicláveis.",
     tipo: "quiz",
     pontuacaoMinima: 300,
-    pontuacaoMaxima: 1000,
+    pontuacaoMaxima: 500,
   },
   {
     id: 2,
@@ -14,8 +14,8 @@ export const fases = [
     descricao: "A cidade enfrenta uma seca e precisa economizar água.",
     objetivo: "Ensinar o uso racional da água.",
     tipo: "quiz",
-    pontuacaoMinima: 30,
-    pontuacaoMaxima: 50,
+    pontuacaoMinima: 400,
+    pontuacaoMaxima: 500,
   },
   {
     id: 3,
@@ -24,7 +24,7 @@ export const fases = [
     objetivo: "Conscientizar sobre o uso racional da água e a preservação dos recursos",
     tipo: "quiz",
 
-    pontuacaoMinima: 300,
+    pontuacaoMinima: 400,
     pontuacaoMaxima: 500,
   },
   {
@@ -32,7 +32,7 @@ export const fases = [
     nome: "Combate à Poluição e ao Desmatamento",
     descricao: "Identifique impactos ambientais e tome decisões para recuperar áreas degradadas.",
     tipo: "quiz",
-    pontuacaoMinima: 300,
+    pontuacaoMinima: 500,
     pontuacaoMaxima: 500,
   },
   {
@@ -40,15 +40,7 @@ export const fases = [
     nome: "Tecnologia Sustentável",
     descricao: "Use inovação e tecnologias verdes para transformar a cidade em uma Cidade Inteligente Sustentável.",
     tipo: "quiz",
-    pontuacaoMinima: 300,
+    pontuacaoMinima: 500,
     pontuacaoMaxima: 500,
   },
-  {
-    id: 6,
-    nome: "Guardião EcoTech",
-    descricao: "Avalie tudo o que aprendeu para se tornar o Guardião Ecotech.",
-    tipo: "quiz",
-    pontuacaoMinima: 300,
-    pontuacaoMaxima: 500,
-  }
 ];

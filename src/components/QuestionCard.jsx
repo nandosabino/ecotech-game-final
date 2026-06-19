@@ -21,6 +21,19 @@ export default function QuestionCard({
 
     return "bg-slate-800 border-slate-700 opacity-50";
   }
+
+  function mostrarPontos(nivel) {
+    const nivelNormalizado = nivel.toLowerCase();
+
+    if (nivelNormalizado === "fácil" || nivelNormalizado === "facil") return 50;
+    if (nivelNormalizado === "médio" || nivelNormalizado === "medio")
+      return 100;
+    if (nivelNormalizado === "difícil" || nivelNormalizado === "dificil")
+      return 150;
+
+    return 100;
+  }
+
   return (
     <motion.div
       key={pergunta.id}
@@ -35,7 +48,9 @@ export default function QuestionCard({
           {pergunta.nivel}
         </span>
 
-        <span className="text-xs text-slate-400">+100 pontos</span>
+        <span className="text-xs text-slate-400">
+          +{mostrarPontos(pergunta.nivel)} pontos
+        </span>
       </div>
 
       <h2 className="text-xl font-bold mb-6 leading-relaxed">
