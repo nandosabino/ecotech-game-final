@@ -2,45 +2,55 @@ export const fases = [
   {
     id: 1,
     nome: "Desafio da Conscientização Ambiental",
-    descricao: "A poluição foi um problema ambiental mais citado pelos estudantes, e muitos afirmaram não possuir o hábito de separar resíduos reciclávies.",
-    objetivo: "Reduzir a poluição e incentivar a separação correta dos resíduos recicláveis.",
+    descricao:
+      "A poluição foi um dos problemas ambientais mais citados pelos estudantes, e muitos afirmaram não possuir o hábito de separar resíduos recicláveis.",
+    objetivo:
+      "Reduzir a poluição e incentivar a separação correta dos resíduos recicláveis.",
     tipo: "quiz",
     pontuacaoMinima: 300,
-    pontuacaoMaxima: 500,
   },
+
   {
     id: 2,
     nome: "Missão Reciclagem",
-    descricao: "A cidade enfrenta uma seca e precisa economizar água.",
-    objetivo: "Ensinar o uso racional da água.",
+    descricao:
+      "A cidade precisa melhorar a gestão dos resíduos e ampliar a reciclagem.",
+    objetivo:
+      "Promover a coleta seletiva e o descarte correto dos resíduos.",
     tipo: "quiz",
     pontuacaoMinima: 400,
-    pontuacaoMaxima: 500,
   },
+
   {
     id: 3,
     nome: "Crise Hídrica",
-    descricao: "Uma seca está afetando a cidade e o jogador precisa administrar os recursos hídricos.",
-    objetivo: "Conscientizar sobre o uso racional da água e a preservação dos recursos",
+    descricao:
+      "Uma seca está afetando a cidade e o jogador precisa administrar os recursos hídricos.",
+    objetivo:
+      "Conscientizar sobre o uso racional da água e a preservação dos recursos hídricos.",
     tipo: "quiz",
-
-    pontuacaoMinima: 400,
-    pontuacaoMaxima: 500,
+    pontuacaoMinima: 450,
   },
+
   {
     id: 4,
     nome: "Combate à Poluição e ao Desmatamento",
-    descricao: "Identifique impactos ambientais e tome decisões para recuperar áreas degradadas.",
+    descricao:
+      "Identifique impactos ambientais e tome decisões para recuperar áreas degradadas.",
+    objetivo:
+      "Reduzir a poluição e recuperar ecossistemas afetados por atividades humanas.",
     tipo: "quiz",
     pontuacaoMinima: 500,
-    pontuacaoMaxima: 500,
   },
+
   {
     id: 5,
-    nome: "Tecnologia Sustentável",
-    descricao: "Use inovação e tecnologias verdes para transformar a cidade em uma Cidade Inteligente Sustentável.",
+    nome: "Cidade Inteligente Sustentável",
+    descricao:
+      "Utilize tecnologia, inovação e planejamento para transformar EcoTech em uma referência de sustentabilidade.",
+    objetivo:
+      "Integrar tecnologia e sustentabilidade para melhorar a qualidade de vida da população.",
     tipo: "quiz",
-    pontuacaoMinima: 500,
-    pontuacaoMaxima: 500,
+    pontuacaoMinima: 550,
   },
 ];

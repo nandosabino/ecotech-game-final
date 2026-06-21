@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export default function FaseIntro({ fase, iniciar }) {
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top,_#064e3b_0%,_#20617_45%)] text-white px-5 justify-center flex items-center">
+    <main className="min-h-dvh bg-[radial-gradient(circle_at_top,_#064e3b_0%,_#020617_45%)] text-white px-5 py-6 justify-center flex items-center">
       <motion.section
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -23,13 +23,15 @@ export default function FaseIntro({ fase, iniciar }) {
             Fase {fase.id}
           </p>
 
-          <h1 className="text-3xl font-bold mt-2">{fase.nome}</h1>
+          <h1 className="text-3xl font-bold mt-2 leading-tight max-w-sm mx-auto">
+            {fase.nome}
+          </h1>
 
           <p className="text-slate-400 mt-5 leading-relaxed">
             {fase.descricao}
           </p>
 
-          <div className="bg-slate-800 rounded-2xl p-4">
+          <div className="bg-slate-800 rounded-2xl p-4 mt-5">
             <p className="text-xs text-slate-400 uppercase">Meta da fase</p>
 
             <strong className="text-green-400 text-xl">

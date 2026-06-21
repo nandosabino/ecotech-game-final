@@ -11,15 +11,13 @@ export default function QuestionCard({
       return "bg-slate-800 hover:bg-slate-700 border-slate-700";
     }
 
-    if (alternativa.correta) {
-      return "bg-green-500/20 border-green-500 text-green-300";
+    if (respostaSelecionada === index) {
+      return alternativa.correta
+        ? "bg-green-500/20 border-green-500 text-green-300"
+        : "bg-red-500/20 border-red-500 text-red-300";
     }
 
-    if (respostaSelecionada === index && !alternativa.correta) {
-      return "bg-red-500/20 border-red-500 text-red-300";
-    }
-
-    return "bg-slate-800 border-slate-700 opacity-50";
+    return "bg-slate-800 border-slate-700 opacity-70";
   }
 
   function mostrarPontos(nivel) {
@@ -69,15 +67,9 @@ export default function QuestionCard({
             <div className="flex items-center justify-between gap-3">
               <span>{alternativa.texto}</span>
 
-              {respondido && alternativa.correta && (
-                <span className="text-green-400">✅</span>
+              {respondido && respostaSelecionada === index && (
+                <span>{alternativa.correta ? "✅" : "❌"}</span>
               )}
-
-              {respondido &&
-                respostaSelecionada === index &&
-                !alternativa.correta && (
-                  <span className="text-red-400">❌</span>
-                )}
             </div>
           </motion.button>
         ))}

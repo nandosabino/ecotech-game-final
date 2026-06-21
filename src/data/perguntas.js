@@ -5,7 +5,7 @@ export const perguntas = [
 id: 1,
 fase: 1,
 tipo: "decisao",
-nivel: "médio",
+nivel: "medio",
 
 pergunta:
 "A cidade EcoTech enfrenta aumento no consumo de energia, desperdício de água e acúmulo de lixo. A prefeitura deseja iniciar um programa ambiental com baixo custo e resultados duradouros. Qual estratégia apresenta maior potencial de sucesso?",
@@ -60,7 +60,7 @@ explicacao:
 id: 2,
 fase: 1,
 tipo: "decisao",
-nivel: "difícil",
+nivel: "dificil",
 
 pergunta:
 "Uma escola pretende reduzir seus impactos ambientais ao longo dos próximos anos. Qual medida apresenta maior potencial de transformação permanente?",
@@ -86,7 +86,7 @@ consciencia: 5,
 
 {
   texto:
-    "Implantar um programa permanente de sustentabilidade integrado às atividades escolares",
+    "Implantar um programa permanente de sustentabilidade integrado as atividades escolares",
   correta: true,
   impacto: {
     sustentabilidade: 20,
@@ -113,7 +113,7 @@ explicacao:
 id: 3,
 fase: 1,
 tipo: "decisao",
-nivel: "médio",
+nivel: "medio",
 
 pergunta:
 "Após um grande evento escolar, foi identificado desperdício significativo de alimentos. Qual medida é mais eficiente para evitar que o problema se repita?",

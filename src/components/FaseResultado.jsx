@@ -36,13 +36,13 @@ export default function FaseResultado({
           <div className="grid grid-cols-2 gap-3 mt-6">
             <div className="bg-slate-800 rounded-2xl p-4">
               <p className="text-xs text-slate-400">Sua pontuação</p>
-              <strong className="text-2xl text-green-400">~{pontosFase}</strong>
+              <strong className="text-2xl text-green-400">{pontosFase}</strong>
             </div>
 
             <div className="bg-slate-800 rounded-2xl p-4">
               <p className="text-xs text-slate-400">Meta</p>
               <strong className="text-2xl text-green-400">
-                {fase.PontuacaoMinima}
+                {fase.pontuacaoMinima}
               </strong>
             </div>
           </div>
@@ -50,7 +50,7 @@ export default function FaseResultado({
           {aprovado ? (
             <motion.button
               whileTap={{ scale: 0.97 }}
-              onClick={{ continuar }}
+              onClick={continuar}
               className="w-full mt-6 bg-gradient-to-r 
             from-green-400 to-emerald-500 text-slate-950 font-bold py-4 rounded-2xl shadow-lg shadow-green-500/20"
             >
@@ -68,72 +68,10 @@ export default function FaseResultado({
 
           <button
             onClick={voltar}
-            className="w-full mt-3 text-slate-400 text-sm"
+            className="w-full mt-3 bg-slate-800 border border-slate-700 hover:border-slate-600 text-white font-semibold py-4 rounded-2xl transition-alw-full mt-3 bg-slate-900 border-2 border-slate-700 text-slate-200 font-bold py-4 rounded-2xl transition-all hover:border-green-500 hover:text-white"
           >
-            Voltar ao início
+            🏠 Voltar ao início
           </button>
-        </div>
-
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 mt-6">
-          <p className="text-slate-400 text-sm">Sua pontuação</p>
-
-          <h2
-            className={`text-5xl font-bold mt-2 ${
-              aprovado ? "text-green-400" : "text-red-400"
-            }`}
-          >
-            {pontosFase}
-          </h2>
-
-          <p className="text-slate-400 text-sm mt-4">
-            Meta mínima:{" "}
-            <strong className="text-yellow-400">{fase.pontuacaoMinima}</strong>
-          </p>
-        </div>
-
-        <p className="text-slate-300 text-sm leading-relaxed mt-6">
-          {aprovado
-            ? "Você atingiu a pontuação mínima e demonstrou domínio sobre a separação correta dos resíduos recicláveis."
-            : "Você não atingiu a pontuação mínima necessária. Revise o conteúdo e tente novamente para avançar."}
-        </p>
-
-        <div className="flex flex-col gap-3 mt-8">
-          {aprovado ? (
-            <>
-              <button
-                onClick={continuar}
-                className="w-full bg-green-500 text-slate-950 font-bold py-4 rounded-2xl 
-              active:scale-[0.98]"
-              >
-                Avançar para próxima fase
-              </button>
-
-              <button
-                onClick={voltar}
-                className="w-full bg-slate-900 border border-slate-700 text-white 
-              font-bold py-4 rounded-2xl active:scale-[0.98]"
-              >
-                Voltar ao menu
-              </button>
-            </>
-          ) : (
-            <>
-              <button
-                onClick={repetir}
-                className="w-full bg-red-500 text-white font-bold py-4 rounded-2xl active:scale-[0.98]"
-              >
-                Tentar novamente
-              </button>
-
-              <button
-                onClick={voltar}
-                className="w-full bg-slate-900 border border-slate-700 text-white font-bold py-4 rounded-2xl 
-                active:scale-[0.98]"
-              >
-                Voltar ao menu
-              </button>
-            </>
-          )}
         </div>
       </motion.section>
     </main>
