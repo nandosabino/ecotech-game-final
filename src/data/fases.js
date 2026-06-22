@@ -29,7 +29,7 @@ export const fases = [
     objetivo:
       "Conscientizar sobre o uso racional da água e a preservação dos recursos hídricos.",
     tipo: "quiz",
-    pontuacaoMinima: 450,
+    pontuacaoMinima: 550,
   },
 
   {
@@ -40,7 +40,7 @@ export const fases = [
     objetivo:
       "Reduzir a poluição e recuperar ecossistemas afetados por atividades humanas.",
     tipo: "quiz",
-    pontuacaoMinima: 500,
+    pontuacaoMinima: 650,
   },
 
   {
@@ -51,6 +51,6 @@ export const fases = [
     objetivo:
       "Integrar tecnologia e sustentabilidade para melhorar a qualidade de vida da população.",
     tipo: "quiz",
-    pontuacaoMinima: 550,
+    pontuacaoMinima: 750,
   },
 ];
