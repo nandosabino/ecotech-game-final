@@ -86,10 +86,18 @@ export default function Jogo() {
     const nivelNormalizado = nivel.toLowerCase();
 
     if (nivelNormalizado === "facil" || nivelNormalizado === "facil") return 50;
+
     if (nivelNormalizado === "medio" || nivelNormalizado === "medio")
       return 100;
-    if (nivelNormalizado === "dificil" || nivelNormalizado === "dificil")
+
+    if (nivelNormalizado === "difícil" || nivelNormalizado === "dificil")
       return 150;
+
+    if (
+      nivelNormalizado === "muito difícil" ||
+      nivelNormalizado === "muito dificil"
+    )
+      return 200;
 
     return 100;
   }

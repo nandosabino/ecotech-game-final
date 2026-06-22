@@ -29,6 +29,12 @@ export default function QuestionCard({
     if (nivelNormalizado === "difícil" || nivelNormalizado === "dificil")
       return 150;
 
+    if (
+      nivelNormalizado === "muito difícil" ||
+      nivelNormalizado === "muito dificil"
+    )
+      return 200;
+
     return 100;
   }
 
